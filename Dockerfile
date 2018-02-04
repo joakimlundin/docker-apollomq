@@ -4,6 +4,8 @@ FROM ubuntu:14.04
 # Install java
 RUN \
    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+   apt-get update && \
+   apt-get install -y software-properties-common && \
    add-apt-repository -y ppa:webupd8team/java && \
    apt-get update && \
    apt-get install -y oracle-java8-installer && \
@@ -16,17 +18,19 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 RUN useradd -m apollo
 
 # Install Apollo MQ
-ENV APOLLO_HOME /opt/apollo
-ADD --chown apollo:apollo http://apache.mirrors.spacedump.net/activemq/activemq-apollo/1.7.1/apache-apollo-1.7.1-unix-distro.tar.gz $(APOLLO_HOME)
-WORKDIR $(APOLLO_HOME)
-RUN tar -zxvf apache-apollo-1.7.1-unix-distro.tar.gz
+ENV APOLLO_ROOT /opt/apollo
+WORKDIR ${APOLLO_ROOT}
+ADD --chown=apollo:apollo http://apache.mirrors.spacedump.net/activemq/activemq-apollo/1.7.1/apache-apollo-1.7.1-unix-distro.tar.gz ${APOLLO_ROOT}
+RUN tar -zxvf apache-apollo-1.7.1-unix-distro.tar.gz && \
+   rm apache-apollo-1.7.1-unix-distro.tar.gz
 
 # Create broker instance
+ENV APOLLO_HOME ${APOLLO_ROOT}/apache-apollo-1.7.1
 ENV BROKER_HOME /var/lib/brokers
-WORKDIR $(BROKER_HOME)
+WORKDIR ${BROKER_HOME}
 RUN \
-   chown apollo:apollo $(BROKER_HOME) && \
-   $(APOLLO_HOME)/bin/apollo create apollo-broker
+   chown apollo:apollo ${BROKER_HOME} && \
+   ${APOLLO_HOME}/bin/apollo create apollo-broker
 ADD apollo.xml apollo-boker/etc/
    
 # Expose standard ports
