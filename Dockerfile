@@ -31,7 +31,9 @@ WORKDIR ${BROKER_HOME}
 RUN \
    chown apollo:apollo ${BROKER_HOME} && \
    ${APOLLO_HOME}/bin/apollo create apollo-broker
-ADD apollo.xml apollo-boker/etc/
+ADD apollo.xml apollo-broker/etc/
+ADD users.properties apollo-broker/etc/
+ADD groups.properties apollo-broker/etc/
    
 # Expose standard ports
 EXPOSE 61613 61614 61623 61624 61680 61681 5672 5671
