@@ -28,12 +28,11 @@ RUN tar -zxvf apache-apollo-1.7.1-unix-distro.tar.gz && \
 ENV APOLLO_HOME ${APOLLO_ROOT}/apache-apollo-1.7.1
 ENV BROKER_HOME /var/lib/brokers
 WORKDIR ${BROKER_HOME}
-RUN \
-   chown apollo:apollo ${BROKER_HOME} && \
-   ${APOLLO_HOME}/bin/apollo create apollo-broker
+RUN ${APOLLO_HOME}/bin/apollo create apollo-broker
 ADD apollo.xml apollo-broker/etc/
 ADD users.properties apollo-broker/etc/
 ADD groups.properties apollo-broker/etc/
+RUN chown apollo:apollo ${BROKER_HOME} && \
    
 # Expose standard ports
 EXPOSE 61613 61614 61623 61624 61680 61681 5672 5671
