@@ -1,18 +1,5 @@
-# From Ubuntu base image
-FROM ubuntu:14.04
-
-# Install java
-RUN \
-   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-   apt-get update && \
-   apt-get install -y software-properties-common && \
-   add-apt-repository -y ppa:webupd8team/java && \
-   apt-get update && \
-   apt-get install -y oracle-java8-installer && \
-   rm -rf /var/lib/apt/lists/* && \
-   rm -rf /var/cache/oracle-jdk8-installer
-
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+# From OpenJDK base image
+FROM openjdk:8-jre-slim
 
 # Create Apollo user
 RUN useradd -m apollo
@@ -35,7 +22,7 @@ ADD groups.properties apollo-broker/etc/
 RUN chown -R apollo:apollo ${BROKER_HOME}
  
 # Expose standard ports
-EXPOSE 61613 61614 61623 61624 61680 61681 5672 5671
+EXPOSE 61680 5672
 
 # Execute
 USER apollo
