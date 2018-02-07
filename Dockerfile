@@ -17,8 +17,7 @@ ENV BROKER_HOME /var/lib/brokers
 WORKDIR ${BROKER_HOME}
 RUN ${APOLLO_HOME}/bin/apollo create apollo-broker
 ADD apollo.xml apollo-broker/etc/
-ADD users.properties apollo-broker/etc/
-ADD groups.properties apollo-broker/etc/
+ADD log4j.properties apollo-broker/etc/
 RUN chown -R apollo:apollo ${BROKER_HOME}
  
 # Mount data directory
