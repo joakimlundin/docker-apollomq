@@ -45,11 +45,8 @@
     <host_name>127.0.0.1</host_name>
 
     <!-- Uncomment to disable security for the virtual host -->
-    <!-- <authentication enabled="false"/> -->
-
-    <!-- Uncomment to disable security for the virtual host -->
-    <!-- <authentication enabled="false"/> -->
-    <access_rule allow="users" action="connect create destroy send receive consume"/>
+    <authentication enabled="false"/>
+    <access_rule allow="*" action="connect create destroy send receive consume"/>
     
 
     <!-- You can delete this element if you want to disable persistence for this virtual host -->
