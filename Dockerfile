@@ -21,6 +21,9 @@ ADD users.properties apollo-broker/etc/
 ADD groups.properties apollo-broker/etc/
 RUN chown -R apollo:apollo ${BROKER_HOME}
  
+# Mount data directory
+VOLUME ${BROKER_HOME}/apollo-broker/data
+
 # Expose standard ports
 EXPOSE 61680 5672
 
