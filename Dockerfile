@@ -19,7 +19,10 @@ RUN ${APOLLO_HOME}/bin/apollo create apollo-broker
 ADD apollo.xml apollo-broker/etc/
 ADD log4j.properties apollo-broker/etc/
 RUN chown -R apollo:apollo ${BROKER_HOME}
- 
+
+# Update JVM heap space
+RUN sed -i 's/^#export JVM_FLAGS=.*$/export JVM_FLAGS="-server -Xms7G -Xmx7G"/' ${BROKER_HOME}/apollo-broker/bin/apollo-broker
+
 # Mount data directory
 VOLUME ${BROKER_HOME}/apollo-broker/data
 
