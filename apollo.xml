@@ -64,6 +64,6 @@
 
   <key_storage file="${apollo.base}/etc/keystore" password="password" key_password="password"/>
 
-  <auto_gc interval="5">
+  <auto_gc interval="5" />
 
 </broker>
