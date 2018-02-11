@@ -52,7 +52,7 @@
     <!-- You can delete this element if you want to disable persistence for this virtual host -->
     <leveldb_store directory="${apollo.base}/data"/>
     
-    <queue id="benchmark" persistent="true" auto_delete_after="0" />
+    <queue id="benchmark" persistent="true" auto_delete_after="0" tail_buffer="100m" />
 
   </virtual_host>
 
@@ -63,5 +63,7 @@
   <connector id="amqp" bind="tcp://0.0.0.0:5672" connection_limit="2000"/>
 
   <key_storage file="${apollo.base}/etc/keystore" password="password" key_password="password"/>
+
+  <auto_gc interval="5">
 
 </broker>
