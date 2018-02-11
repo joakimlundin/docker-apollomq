@@ -59,9 +59,7 @@
   <web_admin bind="http://0.0.0.0:61680"/>
   <web_admin bind="https://0.0.0.0:61681"/>
 
-  <connector id="tcp" bind="tcp://0.0.0.0:61616" connection_limit="2000">
-    <openwire attribute="value"/>
-  </connector>
+  <connector id="tcp" bind="tcp://0.0.0.0:61616" connection_limit="2000"/>
   <connector id="amqp" bind="tcp://0.0.0.0:5672" connection_limit="2000"/>
 
   <key_storage file="${apollo.base}/etc/keystore" password="password" key_password="password"/>
